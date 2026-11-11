@@ -57,42 +57,127 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Deployment
+## Swagger
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```
+http://localhost:3000/api
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Request body
+```
+ {
+  items[]:{
+    "name":string
+    "price" number
+    "category" : 'electronics' | 'clothing' | 'accessories';
+    "quantity":
+  },
+  discount:[]{
+    {
+      "type":string
+      "subtype": string
+      "amount": number
+    }
+  }
+}
+```
 
-## Resources
+### Discount Rule
+```
+Apply only one campaign from the same category, i.e. users have to choose either Fixed amount or
+Percentage discount. 
 
-Check out a few resources that may come in handy when working with NestJS:
+*** if same category has more one  campaign will calcucate only first campaign found
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Example Discount Coupon Fixed Amont
+```
+discount:[{
+    {
+      "type":"coupon"
+      "subtype": "fixed"
+      "amount": 120
+    }
+  }]
+```
 
-## Support
+### Example Coupon Percentage
+```
+discount:[{
+    {
+     "type":"coupon"
+      "subtype": "percentage"
+      "amount": 120
+    }
+  }]
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Example Ontop Percentage Category
+```
+discount:[{
+    {
+     "type":"onTop"
+      "subtype": "category"
+      "category": "electronics" | "clothing" | "accessories";
+      "amount": 120
+    }
+  }]
+```
 
-## Stay in touch
+### Example Ontop Discount By point
+```
+discount:[{
+    {
+     "type":"onTop"
+      "subtype": "points"
+      "points":120
+    }
+  }]
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Example Seasonal Special Campiagn
+```
+discount:[{
+    {
+     "type":"seasonal"
+      "subtype": "special"
+      "every":300
+      "discount":40
+    }
+  }]
+```
 
-## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Example
+```
+{
+  "items": [
+      {
+        "name": "T-Shirt",
+        "price": 350,
+        "category": "clothing",
+        "quantity": 1
+      },
+    {
+      "name": "Hat",
+      "price": 250,
+      "category": "clothing",
+      "quantity": 1
+    },
+    {
+      "name": "Belt",
+      "price": 230,
+      "category": "accessories",
+      "quantity": 1
+    }
+  ],
+  "discounts": [
+    {
+      "type": "seasonal",
+      "subtype": "special",
+      "every": 300,
+      "discount": 50
+    }
+  ]
+}
+```
