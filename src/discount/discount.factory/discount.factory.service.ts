@@ -41,7 +41,7 @@ export class DiscountFactoryService {
     createSeasonal(seasonal:SeasonalDiscountType) : SeasonalDiscount {
         switch (seasonal.subtype.toLocaleLowerCase()) {
             case 'special':
-                return new SpecialDiscount(seasonal.amount, seasonal.every);
+                return new SpecialDiscount(seasonal.discount, seasonal.every);
             default:
                 throw new HttpException(`Unsupported seasonal type: ${seasonal.subtype}`, 500);
         }

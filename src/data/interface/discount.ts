@@ -20,6 +20,7 @@ export type OnTopDiscount = CategoryDiscount | PointsDiscount;
 export interface SeasonalDiscount extends Discount {
     subtype: 'special';
     every: number;
+    discount : number
 }
 
 export type SeasonalDiscountType = SeasonalDiscount;

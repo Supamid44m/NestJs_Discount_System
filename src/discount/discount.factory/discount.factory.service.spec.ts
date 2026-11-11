@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DiscountFactoryService } from './discount.factory.service';
 import { CouponService } from '../campaigns/coupon.service';
+import { PercentageDiscount } from '../campaigns/coupon/percentage.service';
+import { FixedAmountDiscount } from '../campaigns/coupon/fixed.amount.service';
 
 describe('DiscountFactoryService', () => {
   let service: DiscountFactoryService;
@@ -17,9 +19,14 @@ describe('DiscountFactoryService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create coupon a discount correctly', () => {
+  it('should create fixed amount coupon  discount correctly', () => {
     const discount = service.createCoupon('fixed', 50);
-    expect(discount).toBeInstanceOf(CouponService)
+    expect(discount).toBeInstanceOf(FixedAmountDiscount);
+  });
+
+  it('should create percentage  discount correctly', () => {
+    const discount = service.createCoupon('percentage', 50);
+    expect(discount).toBeInstanceOf(PercentageDiscount);
   });
 
   it('should throw an error for unknown discount type', () => {
