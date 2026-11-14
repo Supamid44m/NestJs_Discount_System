@@ -23,7 +23,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A REST API that calculates cart totals with discount campaigns (coupon, on-top, seasonal), documented with Swagger.
 
 ## Project setup
 
